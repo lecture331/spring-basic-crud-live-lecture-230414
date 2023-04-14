@@ -2,12 +2,14 @@ package com.example.springbasiccrudlivelecture230414.repository;
 
 import com.example.springbasiccrudlivelecture230414.dto.CourseResponseDto;
 import com.example.springbasiccrudlivelecture230414.entity.Course;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Repository
 public class CourseRepository {
     private static final Map<Long, Course> table = new HashMap<>();
     private static long ID;

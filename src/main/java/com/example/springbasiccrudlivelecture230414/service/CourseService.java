@@ -4,12 +4,20 @@ import com.example.springbasiccrudlivelecture230414.dto.CourseRequestDto;
 import com.example.springbasiccrudlivelecture230414.dto.CourseResponseDto;
 import com.example.springbasiccrudlivelecture230414.entity.Course;
 import com.example.springbasiccrudlivelecture230414.repository.CourseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CourseService {
 
-    private final CourseRepository courseRepository = new CourseRepository();
+    private final CourseRepository courseRepository;
+
+    @Autowired
+    public CourseService(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
+    }
 
     public String createCourse(CourseRequestDto requestDto) {
         // 브라우저에서 받아온 데이터를 저장하기 위해서 Course 객체로 변환

@@ -3,6 +3,8 @@ package com.example.springbasiccrudlivelecture230414.controller;
 import com.example.springbasiccrudlivelecture230414.dto.CourseRequestDto;
 import com.example.springbasiccrudlivelecture230414.dto.CourseResponseDto;
 import com.example.springbasiccrudlivelecture230414.service.CourseService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +13,12 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseController {
 
-    private final CourseService courseService = new CourseService();
+    private final CourseService courseService;
+
+    @Autowired
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @PostMapping("/create")
     public String createCourse(@RequestBody CourseRequestDto requestDto) {
