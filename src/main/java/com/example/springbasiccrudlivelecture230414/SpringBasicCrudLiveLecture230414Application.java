@@ -10,4 +10,19 @@ public class SpringBasicCrudLiveLecture230414Application {
         SpringApplication.run(SpringBasicCrudLiveLecture230414Application.class, args);
     }
 
+//    @Autowired
+//    private CourseRepository courseRepository;
+//
+//    @Bean
+//    public ApplicationRunner applicationRunner() {
+//        return args -> {
+//            File json = ResourceUtils.getFile("classpath:CourseData.json");
+//
+//            List<CourseRequestDto> list = new ObjectMapper().readValue(json,new TypeReference<>(){});
+//            List<Course> courses = list.stream().map(Course::new).collect(Collectors.toCollection(ArrayList::new));
+//
+//            courseRepository.saveAll(courses);
+//        };
+//    }
+
 }
