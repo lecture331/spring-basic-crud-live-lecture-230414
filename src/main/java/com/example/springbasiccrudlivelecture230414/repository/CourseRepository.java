@@ -1,39 +1,49 @@
 package com.example.springbasiccrudlivelecture230414.repository;
 
-import com.example.springbasiccrudlivelecture230414.dto.CourseResponseDto;
+import com.example.springbasiccrudlivelecture230414.dto.CourseRequestDto;
 import com.example.springbasiccrudlivelecture230414.entity.Course;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Repository
 public class CourseRepository {
-    private static final Map<Long, Course> table = new HashMap<>();
-    private static long ID;
 
-    public String createCourse(Course course) {
-        // ID 중복을 막기위해서 현재 테이블의 최대 ID + 1
-        course.setId(++ID);
+    @PersistenceContext
+    EntityManager em;
 
-        // 테이블에 생성한 Course 인스턴스를 저장!
-        table.put(ID, course);
-
-        return "강의 저장에 성공했습니다.";
+    // 강의 등록
+    @Transactional
+    public void save(Course course) {
+        //트랜잭션 시작
+        em.persist(course);
+        //트랜잭션 끝
     }
 
-    public List<CourseResponseDto> getCourseList() {
-        // 테이블에 저장되어있는 모든 강의 목록을 조회
-        return table.values().stream().map(CourseResponseDto::new).collect(Collectors.toList());
+    // 강의 단일 조회
+    @Transactional
+    public Optional<Course> findById(Long id) {
+        Course course = em.find(Course.class, id);
+        return Optional.ofNullable(course);
     }
 
-    public Course getCourse(Long id) {
-        return table.get(id);
+    // 강의 전체 조회
+    @Transactional
+    public List<Course> findAll() {
+        return em.createQuery("select c from Course c", Course.class).getResultList();
     }
 
-    public void deleteCourse(Long id) {
-        table.remove(id);
+    // 강의 삭제
+    @Transactional
+    public void delete(Long id) {
+        // 삭제할 강의 조회
+        Course course = em.find(Course.class, id);
+
+        em.remove(course);
     }
+
 }
