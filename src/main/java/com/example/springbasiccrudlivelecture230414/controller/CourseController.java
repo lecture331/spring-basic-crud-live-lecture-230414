@@ -44,4 +44,9 @@ public class CourseController {
     public String deleteCourse(@PathVariable Long id) {
         return courseService.deleteCourse(id);
     }
+
+    @GetMapping("/title/{title}")
+    public CourseResponseDto getCourseByTitle(@PathVariable String title) {
+        return courseService.getCourseByTitle(title);
+    }
 }
